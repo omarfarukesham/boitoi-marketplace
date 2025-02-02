@@ -1,6 +1,9 @@
+import EmblaCarousel from "@/components/HeroCarousel";
 
 export default function HomePage() {
   return (
-    <div>HomePage</div>
+    <div>
+      <EmblaCarousel />
+    </div>
   )
 }
