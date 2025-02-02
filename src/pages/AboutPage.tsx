@@ -1,85 +1,39 @@
-import React from "react";
-
 export default function About() {
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-100 dark:bg-gray-900 p-5">
-      {/* Section Title */}
-      <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
-        About Me
-      </h2>
-
-      {/* About Content */}
-      <div className="max-w-4xl w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8">
-        {/* Personal Summary */}
-        <div className="mb-6">
-          <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-            I am a dedicated professional...
-          </h3>
-          <p className="mt-4 text-gray-700 dark:text-gray-300">
-            With a Bachelor’s degree in Computer Science and Engineering, majoring in Software Engineering, I’ve developed a diverse skill set over the years. My career spans IT support, web development, software testing, and digital marketing. I combine technical expertise with creativity to deliver solutions that are both functional and visually compelling.
-          </p>
-        </div>
-
-        {/* Education Section */}
-        <div className="mb-6">
-          <h4 className="text-xl font-semibold text-blue-600 dark:text-blue-400">
-            Education
-          </h4>
-          <ul className="mt-4 text-gray-700 dark:text-gray-300">
-            <li>
-              <strong>B.Sc. in Computer Science and Engineering</strong>
-            </li>
-            <li>Major: Software Engineering</li>
-            <li>Institution: [University Name]</li>
-            <li>Graduation Year: [Year]</li>
-          </ul>
-        </div>
-
-        {/* Professional Experience Section */}
-        <div className="mb-6">
-          <h4 className="text-xl font-semibold text-blue-600 dark:text-blue-400">
-            Professional Experience
-          </h4>
-          <div className="mt-4 text-gray-700 dark:text-gray-300">
-            <div className="mb-4">
-              <strong>IT Technical Support Engineer</strong>
-              <p>
-                Providing advanced technical support, network troubleshooting, and system optimization for businesses to ensure smooth and secure IT operations.
-              </p>
-            </div>
-            <div className="mb-4">
-              <strong>Digital Marketing Specialist</strong>
-              <p>
-                Creating and executing marketing strategies, including social media campaigns and SEO, to drive engagement and measurable growth.
-              </p>
-            </div>
-            <div className="mb-4">
-              <strong>Web Developer</strong>
-              <p>
-                Designing and developing responsive websites, including e-commerce platforms, landing pages, and corporate websites that enhance user experience.
-              </p>
-            </div>
-            <div>
-              <strong>Software Testing Specialist</strong>
-              <p>
-                Performing manual and automated testing to ensure application functionality, security, and performance across platforms.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Thesis Section */}
-        <div>
-          <h4 className="text-xl font-semibold text-blue-600 dark:text-blue-400">
-            Thesis
-          </h4>
-          <p className="mt-4 text-gray-700 dark:text-gray-300">
-            <strong>Title:</strong> [Insert Thesis Title]
-          </p>
-          <p className="mt-2">
-            My thesis explored [briefly describe the focus], presenting cutting-edge solutions in [specific field]. It addressed critical challenges in [related area] and provided insights into [key technologies or methodologies].
-          </p>
-        </div>
+    <div className="min-h-screen bg-gray-50 py-12 px-6 lg:px-20">
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">About Us</h1>
+        
+        <p className="text-gray-600 mb-4">
+          Welcome to <span className="font-semibold">[Your Bookshop Name]</span>, your one-stop destination for books that inspire, educate, and entertain! We believe in the power of stories and knowledge, and our mission is to make reading accessible to everyone.
+        </p>
+        
+        <h2 className="text-2xl font-semibold text-gray-700 mt-6">Our Mission</h2>
+        <p className="text-gray-600 mb-4">
+          At <span className="font-semibold">[Your Bookshop Name]</span>, we are passionate about books and committed to fostering a love for reading. Whether you are a student, a book enthusiast, or someone looking for the perfect gift, we provide a vast selection of books across various genres at affordable prices.
+        </p>
+        
+        <h2 className="text-2xl font-semibold text-gray-700 mt-6">What We Offer</h2>
+        <ul className="list-disc pl-6 text-gray-600 space-y-2">
+          <li>📚 A wide collection of books, including fiction, non-fiction, academic, and self-help.</li>
+          <li>📦 Fast and reliable delivery to ensure your books reach you on time.</li>
+          <li>💳 Secure payment options, including Stripe, for a smooth shopping experience.</li>
+          <li>🎁 Special discounts and exclusive deals for book lovers.</li>
+        </ul>
+        
+        <h2 className="text-2xl font-semibold text-gray-700 mt-6">Why Choose Us?</h2>
+        <ul className="list-disc pl-6 text-gray-600 space-y-2">
+          <li>✅ <span className="font-semibold">Quality Selection</span> – Carefully curated books from renowned authors and publishers.</li>
+          <li>✅ <span className="font-semibold">Customer Satisfaction</span> – Our friendly support team ensures you have a great shopping experience.</li>
+          <li>✅ <span className="font-semibold">Affordable Prices</span> – Great books at competitive prices with special promotions.</li>
+        </ul>
+        
+        <h2 className="text-2xl font-semibold text-gray-700 mt-6">Join Our Reading Community</h2>
+        <p className="text-gray-600 mb-6">
+          We are more than just an online bookstore; we are a community of passionate readers. Follow us on social media, sign up for our newsletter, and stay updated with the latest book releases, reviews, and reading tips.
+        </p>
+        
+        <p className="text-center font-semibold text-gray-700">Happy Reading! 📖💙</p>
       </div>
     </div>
   );

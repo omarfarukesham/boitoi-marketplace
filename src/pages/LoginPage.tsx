@@ -1,38 +1,52 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useLoginMutation } from '@/feature/auth/authSlice';
+import { verifyToken } from '@/hooks/verifyToken';
+
+interface DecodedToken {
+    email: string;
+    role: 'user' | 'admin';
+    id: string;
+    iat: number;
+    exp: number;
+  }
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation();
+  
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: 'book@gmail.com',
+    password: '12345678',
   });
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
 
     try {
-      // Add your login logic here
-      console.log('Login attempt with:', formData);
-      navigate('/');
+      const response = await login(formData).unwrap();
+
+      if (response) {
+        const token = response.data.token;
+        const decodedToken = verifyToken(token) as DecodedToken;
+        console.log(decodedToken)
+        localStorage.setItem('token', token);
+        localStorage.setItem('email', decodedToken.email);
+        localStorage.setItem('id', decodedToken.id);
+        navigate('/');
+      }
     } catch (err) {
-      setError('Invalid email or password');
-    } finally {
-      setLoading(false);
+      setError((err as any)?.data?.message || 'Login failed. Please check your credentials.');
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [e.target.name]: e.target.value
     }));
   };
 
@@ -102,6 +116,7 @@ export default function LoginPage() {
               <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
                 Remember me
               </label>
+              
             </div>
 
             <div className="text-sm">
@@ -114,14 +129,14 @@ export default function LoginPage() {
           <div className="mt-6">
             <button
               type="submit"
-              disabled={loading}
+              disabled={isLoading}
               className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg text-sm font-medium text-white transition duration-150 ease-in-out ${
-                loading 
+                isLoading 
                   ? 'bg-blue-400 cursor-not-allowed' 
                   : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
               }`}
             >
-              {loading ? (
+              {isLoading ? (
                 <span className="flex items-center">
                   <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

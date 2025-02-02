@@ -1,39 +1,35 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useRegisterMutation } from '@/feature/auth/authSlice';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [register, { isLoading }] = useRegisterMutation();
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
   });
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
 
     try {
-      // Add your registration logic here
-      console.log('Register attempt with:', formData);
+      const response = await register(formData).unwrap();
+      console.log('Registration successful:', response);
       navigate('/login');
     } catch (err) {
-      setError('Registration failed. Please try again.');
-    } finally {
-      setLoading(false);
+      setError(err?.data?.message || 'Registration failed. Please try again.');
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [e.target.name]: e.target.value
     }));
   };
 
@@ -104,7 +100,7 @@ export default function RegisterPage() {
                 type="password"
                 required
                 className="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-150 ease-in-out"
-                placeholder="Create a password"
+                placeholder="Create a password 8 digit"
                 value={formData.password}
                 onChange={handleChange}
               />
@@ -114,14 +110,14 @@ export default function RegisterPage() {
           <div className="mt-6">
             <button
               type="submit"
-              disabled={loading}
+              disabled={isLoading}
               className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg text-sm font-medium text-white transition duration-150 ease-in-out ${
-                loading 
+                isLoading 
                   ? 'bg-blue-400 cursor-not-allowed' 
                   : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
               }`}
             >
-              {loading ? (
+              {isLoading ? (
                 <span className="flex items-center">
                   <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

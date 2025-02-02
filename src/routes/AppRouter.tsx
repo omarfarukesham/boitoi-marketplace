@@ -11,6 +11,8 @@ import FavoriteProductPage from '@/pages/FavoriteProductPage';
 import CartPage from '@/pages/CartPage';
 import LoginPage from '@/pages/LoginPage';
 import RegisterPage from '@/pages/RegisterPage';
+import ProfilePage from '@/pages/ProfilePage';
+import AllProductPage from '@/pages/AllProductPage';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: '/products',
         element: <ProductPage />
+      },
+      {
+        path: '/all-products',
+        element: <AllProductPage />
       },
       {
         path: '/product/:id',
@@ -40,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: '/favorite',
         element: <FavoriteProductPage />
+      },
+      {
+        path: '/profile',
+        element: <ProfilePage />
       },
       {
         path: '/login',

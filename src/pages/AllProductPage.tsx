@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import CollectionCard from "@/components/CollectionCard";
 import ProductCard from "@/components/ProductCard";
 import { useGetProductsQuery } from "@/feature/products/productSlice";
-import { Link } from 'react-router-dom';
 import { useState } from "react";
 
+// Types
 interface Product {
   _id: string;
   title: string;
@@ -12,10 +11,9 @@ interface Product {
   image: string;
 }
 
-export default function ProductPage() {
+export default function AllProductPage() {
   const { data: response, isLoading, error } = useGetProductsQuery();
   const [sortBy, setSortBy] = useState("");
-  const initialProductCount = 8;
 
   const sortProducts = (products: Product[]) => {
     if (!products) return [];
@@ -37,7 +35,7 @@ export default function ProductPage() {
   // Loading skeleton component
   const LoadingSkeleton = () => (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {[...Array(8)].map((_, index) => (
+      {[...Array(12)].map((_, index) => (
         <div key={index} className="bg-white rounded-lg shadow-md p-4 animate-pulse">
           <div className="h-64 bg-gray-200 rounded-md mb-4"></div>
           <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
@@ -61,13 +59,9 @@ export default function ProductPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="mb-12">
-        <CollectionCard />
-      </div>
-
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Our Products</h1>
+          <h1 className="text-3xl font-bold text-gray-900">All Products</h1>
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
@@ -83,25 +77,11 @@ export default function ProductPage() {
         {isLoading ? (
           <LoadingSkeleton />
         ) : (
-          <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {sortedProducts.slice(0, initialProductCount).map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
-            </div>
-
-            {sortedProducts.length > initialProductCount && (
-              <div className="text-center mt-12">
-                <Link
-                  to="/all-products"
-                  className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-                >
-                  Show All Products
-                  <span className="ml-2">({sortedProducts.length})</span>
-                </Link>
-              </div>
-            )}
-          </>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {sortedProducts.slice(0, response?.data.length).map((product: any) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </div>
         )}
       </div>
     </div>

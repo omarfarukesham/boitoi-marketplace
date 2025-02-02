@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaTrash, FaMinus, FaPlus } from 'react-icons/fa';
+import { useState } from 'react';
 import { 
   selectCartItems, 
   selectCartTotalAmount,
@@ -8,26 +9,58 @@ import {
   decrementQuantity,
   removeFromCart 
 } from '@/feature/cart/cartSlice';
-import { useState } from 'react';
 
 
 export default function CartPage() {
-    const Navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
   const totalAmount = useSelector(selectCartTotalAmount);
-const [userId, setUserId] = useState(123);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState('');
 
+  const handleCheckout = async () => {
+    setIsProcessing(true);
+    setError('');
+    const user = localStorage.getItem('email');
+    console.log(localStorage.getItem('token'));
 
-    const handleCheckout = () => {
-        alert('Checkout clicked');
-      if(!userId){
-        Navigate('/login');
+    try {
+      if (!user) {
+        navigate('/login');
+        return;
       }
-      else{
-        Navigate('/checkout');
+
+      const response = await fetch('https://assignment-3-gray-seven.vercel.app/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          cartItems: cartItems,
+          customer: JSON.parse(user)
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Checkout failed');
       }
-    };
+
+      // Redirect to payment URL if provided
+      if (data.url) {
+        window.location.href = data.url;
+      }
+
+    } catch (err) {
+      console.error('Checkout error:', err);
+      setError('Failed to process checkout. Please try again.');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -122,8 +155,22 @@ const [userId, setUserId] = useState(123);
                 </div>
               </div>
 
-              <button onClick={handleCheckout} className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
-                Proceed to Checkout
+              {error && (
+                <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
+                  <p className="text-red-700">{error}</p>
+                </div>
+              )}
+              
+              <button
+                onClick={handleCheckout}
+                disabled={isProcessing || cartItems.length === 0}
+                className={`w-full bg-blue-600 text-white py-2 px-4 rounded-md 
+                  ${isProcessing || cartItems.length === 0 
+                    ? 'opacity-50 cursor-not-allowed' 
+                    : 'hover:bg-blue-700'} 
+                  transition-colors`}
+              >
+                {isProcessing ? 'Processing...' : 'Proceed to Checkout'}
               </button>
               
               <Link
