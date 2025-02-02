@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { FiMenu, FiX, FiSearch, FiShoppingCart, FiUser } from "react-icons/fi";
+import { selectCartTotalItems } from "@/feature/cart/cartSlice";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const { cart } = useSelector((state: any) => state.cart);
+  const totalItems = useSelector(selectCartTotalItems);
   const { user } = useSelector((state: any) => state.auth);
 
   const toggleMenu = () => {
@@ -45,13 +46,14 @@ const Navbar = () => {
         <Link to="/about" className="text-gray-600 hover:text-blue-600">
           About
         </Link>
-        <Link to="/checkout" className="relative text-gray-600 hover:text-blue-600">
+        <Link to="/cart" className="relative text-gray-600 hover:text-blue-600">
           <FiShoppingCart size={24} />
-          {cart.length > 0 && (
+          {totalItems > 0 && (
             <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">
-              {cart.length}
+              {totalItems}
             </span>
           )}
+          
         </Link>
         {user ? (
           <Link to="/profile" className="text-gray-600 hover:text-blue-600">
@@ -81,8 +83,8 @@ const Navbar = () => {
           <Link to="/favorite" className="text-gray-600 hover:text-blue-600" onClick={toggleMenu}>
             Favorite
           </Link>
-          <Link to="/checkout" className="text-gray-600 hover:text-blue-600" onClick={toggleMenu}>
-            Cart ({cart.length})
+          <Link to="/cart" className="text-gray-600 hover:text-blue-600" onClick={toggleMenu}>
+          Cart ({totalItems})
           </Link>
           {user ? (
             <Link to="/profile" className="text-gray-600 hover:text-blue-600" onClick={toggleMenu}>
