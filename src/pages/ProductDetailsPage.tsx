@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetProductQuery } from "@/feature/products/productSlice";
@@ -15,7 +16,7 @@ export default function ProductDetailsPage() {
   const [quantity, setQuantity] = useState(1);
   // console.log(product.data.author)
 
-  const product = response?.data;
+  const product = (response as any)?.data;
 
   if (isLoading) {
     return <LoadingSkeleton />;

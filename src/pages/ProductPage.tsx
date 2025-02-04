@@ -11,6 +11,9 @@ interface Product {
   price: number;
   image: string;
 }
+// interface ProductCardProps {
+//   product: Pick<Product, '_id' | 'title' | 'price' | 'image'>;
+// }
 
 export default function ProductPage() {
   const { data: response, isLoading, error } = useGetProductsQuery();
@@ -32,7 +35,8 @@ export default function ProductPage() {
     }
   };
 
-  const sortedProducts = response?.data ? sortProducts(response.data) : [];
+  // const sortedProducts = response?.data ? sortProducts(response.data) : [];
+  const sortedProducts = (response as any)?.data ? sortProducts((response as any).data) : [];
 
   // Loading skeleton component
   const LoadingSkeleton = () => (
@@ -86,6 +90,8 @@ export default function ProductPage() {
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {sortedProducts.slice(0, initialProductCount).map((product) => (
+                  //  console.log(product)
+        
                 <ProductCard key={product._id} product={product} />
               ))}
             </div>

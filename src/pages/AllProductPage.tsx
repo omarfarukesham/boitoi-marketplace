@@ -11,6 +11,7 @@ interface Product {
   image: string;
 }
 
+
 export default function AllProductPage() {
   const { data: response, isLoading, error } = useGetProductsQuery();
   const [sortBy, setSortBy] = useState("");
@@ -30,7 +31,7 @@ export default function AllProductPage() {
     }
   };
 
-  const sortedProducts = response?.data ? sortProducts(response.data) : [];
+  const sortedProducts = (response as any)?.data ? sortProducts((response as any).data) : [];
 
   // Loading skeleton component
   const LoadingSkeleton = () => (
@@ -78,7 +79,7 @@ export default function AllProductPage() {
           <LoadingSkeleton />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {sortedProducts.slice(0, response?.data.length).map((product: any) => (
+            {sortedProducts.slice(0, response?.length).map((product: any) => (
               <ProductCard key={product._id} product={product} />
             ))}
           </div>

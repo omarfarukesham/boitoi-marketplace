@@ -4,10 +4,7 @@ import { useSelector } from "react-redux";
 import { FiMenu, FiX, FiSearch, FiShoppingCart, FiUser, FiLogOut } from "react-icons/fi";
 import { selectCartTotalItems } from "@/feature/cart/cartSlice";
 
-interface UserData {
-  email: string;
-  id?: string;
-}
+
 
 const LogoutModal = ({ isOpen, onClose, onConfirm }: { isOpen: boolean; onClose: () => void; onConfirm: () => void }) => {
   if (!isOpen) return null;
@@ -47,7 +44,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between mx-auto max-w-[1350px]">
+      <nav className="bg-white top-0 sticky z-10 shadow-md px-6 py-4 flex items-center justify-between mx-auto max-w-[1350px]">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-gray-800">
           <span className="text-blue-600">E-</span>Boitoi
@@ -72,8 +69,8 @@ const Navbar = () => {
           <Link to="/products" className="text-gray-600 hover:text-blue-600">
             Products
           </Link>
-          <Link to="/favorite" className="text-gray-600 hover:text-blue-600">
-            Favorite
+          <Link to="https://boitoi-admin.vercel.app/" className="text-gray-600 hover:text-blue-600">
+            Go Dashboard
           </Link>
           <Link to="/about" className="text-gray-600 hover:text-blue-600">
             About
@@ -114,9 +111,9 @@ const Navbar = () => {
             <Link to="/products" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>
               Products
             </Link>
-            <Link to="/favorite" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>
-              Favorite
-            </Link>
+            <Link to="https://boitoi-admin.vercel.app/login" className="text-gray-600 hover:text-blue-600">
+            Go Dashboard
+          </Link>
             <Link to="/about" className="text-gray-600 hover:text-blue-600" onClick={() => setMenuOpen(false)}>
               About
             </Link>

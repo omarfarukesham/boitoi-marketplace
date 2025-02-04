@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaTrash, FaMinus, FaPlus } from 'react-icons/fa';
@@ -16,8 +17,8 @@ export default function CartPage() {
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
   const totalAmount = useSelector(selectCartTotalAmount);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [error, setError] = useState('');
+  const [isProcessing, _setIsProcessing] = useState(false);
+  const [error, _setError] = useState('');
 
   const handleCheckout = () => {
     const user = localStorage.getItem('email');

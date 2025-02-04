@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react';
 import { Tab } from '@headlessui/react';
 
@@ -43,7 +44,7 @@ const mockOrders: Order[] = [
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState(0);
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [_userData, setUserData] = useState<UserData | null>(null);
 
   useEffect(() => {
     const user = localStorage.getItem('user');
