@@ -19,47 +19,15 @@ export default function CartPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState('');
 
-  const handleCheckout = async () => {
-    setIsProcessing(true);
-    setError('');
+  const handleCheckout = () => {
     const user = localStorage.getItem('email');
-    console.log(localStorage.getItem('token'));
-
-    try {
-      if (!user) {
-        navigate('/login');
-        return;
-      }
-
-      const response = await fetch('https://assignment-3-gray-seven.vercel.app/api/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({
-          cartItems: cartItems,
-          customer: JSON.parse(user)
-        })
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Checkout failed');
-      }
-
-      // Redirect to payment URL if provided
-      if (data.url) {
-        window.location.href = data.url;
-      }
-
-    } catch (err) {
-      console.error('Checkout error:', err);
-      setError('Failed to process checkout. Please try again.');
-    } finally {
-      setIsProcessing(false);
+  
+    if (!user) {
+      navigate('/login');
+      return;
     }
+  
+    navigate('/checkout');
   };
 
   if (cartItems.length === 0) {

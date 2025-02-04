@@ -1,3 +1,4 @@
+import { IProductResponse } from '@/types/product.type';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 interface IProduct {
@@ -25,10 +26,10 @@ export const productApiSlice = createApi({
       providesTags: ['Product'],
     }),
     getProduct: builder.query<IProduct, string>({
-      query: (id) => `/product/${id}`,
+      query: (id) => `/products/${id}`,
       providesTags: ['Product'],
     }),
-    searchProducts: builder.query<IProduct[], string>({
+    searchProducts: builder.query<IProductResponse, string>({
       query: (searchTerm) => `/products/search?q=${searchTerm}`,
       providesTags: ['Product'],
     }),
