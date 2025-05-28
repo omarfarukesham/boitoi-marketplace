@@ -66,11 +66,17 @@ const Navbar = () => {
 
         {/* Menu Items */}
         <div className="hidden md:flex space-x-6 items-center">
+          <Link to="/" className="text-gray-600 hover:text-blue-600">
+            Home
+          </Link>
           <Link to="/products" className="text-gray-600 hover:text-blue-600">
             Products
           </Link>
-          <Link to="https://boitoi-admin.vercel.app/" className="text-gray-600 hover:text-blue-600">
+          {/* <Link to="https://boitoi-admin.vercel.app/" className="text-gray-600 hover:text-blue-600">
             Go Dashboard
+          </Link> */}
+          <Link to="/collection" className="text-gray-600 hover:text-blue-600">
+            Collection
           </Link>
           <Link to="/about" className="text-gray-600 hover:text-blue-600">
             About

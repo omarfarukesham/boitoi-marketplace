@@ -17,21 +17,21 @@ const collections: Collection[] = [
     image: collection1,
     title: "Academic Books",
     description: "Find your essential academic materials",
-    link: "/collections/academic"
+    link: "/collection"
   },
   {
     id: 2,
     image: collection2,
     title: "Story Books",
     description: "Discover amazing stories",
-    link: "/collections/story"
+    link: "/collection"
   },
   {
     id: 3,
     image: collection3,
     title: "Stationery",
     description: "Quality stationery supplies",
-    link: "/collections/stationery"
+    link: "/collection"
   }
 ];
 

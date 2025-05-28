@@ -15,6 +15,7 @@ import AllProductPage from '@/pages/AllProductPage';
 import CheckoutForm from '@/components/CheckoutForm';
 import Payment from '@/components/Payment';
 import PaymentSuccessPage from '@/pages/PaymentSuccessPage';
+import Collection from '@/pages/CollectionPage';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <CartPage />
+      },
+      {
+        path: '/collection',
+        element: <Collection />
       },
       {
         path: '/payment-success',

@@ -74,7 +74,7 @@ export default function TestimonialPage() {
   }, [emblaApi]);
 
   return (
-    <div className="bg-gray-200 py-5 mb-10">
+    <div className="bg-gray-100 py-5 mb-10">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
